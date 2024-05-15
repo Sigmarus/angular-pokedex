@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PokemonListServiceComponent } from './pokemon-list.service';
 import { map, tap } from 'rxjs/operators';
-import { ActivatedRoute, } from '@angular/router';
 import { Pagination } from './pagination';
 
 @Component({
@@ -9,16 +8,12 @@ import { Pagination } from './pagination';
   templateUrl: './pokemon-list.component.html',
   styleUrls: ['./pokemon-list.component.scss']
 })
-export class PokemonListComponent implements OnInit {
+export class PokemonListComponent {
 
   count!: number;
   pagination = new Pagination();
 
   constructor(private pokemonListService: PokemonListServiceComponent) {}
-
-  ngOnInit(): void {
-    this.pokemonListService.changePagination(this.pagination);
-  }
 
   pokemons$ = this.pokemonListService.pokemons$.pipe(
     tap(response => {

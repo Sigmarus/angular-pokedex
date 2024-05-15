@@ -7,7 +7,7 @@
     </ul>
     <div style="display: flex; justify-content: center;">
         <button (click)="pagePrevious()">Prev</button>
-        <p>{{pagination.offset ?? 0}}/{{count}}</p>
+        <p>{{pagination.offset+pagination.limit}}/{{count}}</p>
         <button (click)="pageNext()">Next</button>
     </div>
 </ng-container>
