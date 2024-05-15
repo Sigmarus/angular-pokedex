@@ -1,0 +1,13 @@
+<h2>List of Pokémons</h2>
+<ng-container *ngIf="(pokemons$ | async) as pokemons">
+    <ul>
+        <li *ngFor="let pokemon of pokemons">
+            {{ pokemon.name }}
+        </li>
+    </ul>
+    <div style="display: flex; justify-content: center;">
+        <button (click)="pagePrevious()">Prev</button>
+        <p>{{pagination.offset ?? 0}}/{{count}}</p>
+        <button (click)="pageNext()">Next</button>
+    </div>
+</ng-container>
