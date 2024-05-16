@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PokemonListComponent } from './pokemon-list/pokemon-list.component';
 import { PokemonDetailsComponent } from './pokemon-details/pokemon-details.component';
+import { CeilIntegerPipe } from 'src/utils/CeilIntegerPipe';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { PokemonDetailsComponent } from './pokemon-details/pokemon-details.compo
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    CeilIntegerPipe
   ],
   providers: [],
   bootstrap: [AppComponent]

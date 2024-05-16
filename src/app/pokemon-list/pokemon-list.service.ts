@@ -3,7 +3,7 @@ import { environment } from 'src/environments/environment';
 import { Injectable, inject } from "@angular/core";
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { catchError, switchMap, tap } from 'rxjs/operators';
-import { BehaviorSubject, EMPTY } from 'rxjs';
+import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
 import { Pagination } from './pagination';
 
 @Injectable({ providedIn: 'root' })
@@ -26,15 +26,18 @@ export class PokemonListServiceComponent {
                 return this.http.get<any>(this.baseUrl, options)
                     .pipe(
                         tap(pokemons => console.log(pokemons)),
-                        catchError(err => {
-                            console.error(err);
-                            return EMPTY;
-                        })
+                        catchError(this.handleError)
                     );
-            })
+            }),
+            catchError(this.handleError)
         );
 
     changePagination(pagination: Pagination) {
         this.pokemonPageSubject.next(pagination);
+    }
+
+    handleError(error: any): Observable<never> {
+        console.error(error);
+        return EMPTY;
     }
 }

@@ -6,8 +6,10 @@
         </li>
     </ul>
     <div style="display: flex; justify-content: center;">
-        <button (click)="pagePrevious()">Prev</button>
-        <p>{{pagination.offset+pagination.limit}}/{{count}}</p>
-        <button (click)="pageNext()">Next</button>
+        <button [disabled]="firstPage" (click)="goToFirstPage()">First</button>
+        <button [disabled]="firstPage" (click)="goToPreviousPage()">Prev</button>
+        <p>{{(pagination.offset/pagination.limit)+1}}/{{(count/pagination.limit) | ceil}}</p>
+        <button [disabled]="lastPage" (click)="goToNextPage()">Next</button>
+        <button [disabled]="lastPage" (click)="goToLastPage()">Last</button>
     </div>
 </ng-container>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { PokemonListServiceComponent } from './pokemon-list.service';
 import { map, tap } from 'rxjs/operators';
 import { Pagination } from './pagination';
@@ -12,6 +12,8 @@ export class PokemonListComponent {
 
   count!: number;
   pagination = new Pagination();
+  firstPage = true;
+  lastPage = false;
 
   constructor(private pokemonListService: PokemonListServiceComponent) {}
 
@@ -22,19 +24,40 @@ export class PokemonListComponent {
     map(pokemons => pokemons.results)
   );
 
-  pageNext() {
+  goToNextPage() {
     if (this.pagination.offset + this.pagination.limit > this.count) {
+      this.goToLastPage();
       return;
     }
     this.pagination.offset += this.pagination.limit;
     this.pokemonListService.changePagination(this.pagination);
+    this.lastPage = false;
+    this.firstPage = false;
   }
 
-  pagePrevious() {
+  goToPreviousPage() {
     if (this.pagination.offset - this.pagination.limit < 0) {
+      this.goToFirstPage();
       return;
     }
     this.pagination.offset -= this.pagination.limit;
     this.pokemonListService.changePagination(this.pagination);
+    this.lastPage = false;
+    this.firstPage = false;
+  }
+
+  goToLastPage() {
+    const lastPageRemainingItems = (this.count % this.pagination.limit);
+    this.pagination.offset = this.count - (lastPageRemainingItems > 0 ? lastPageRemainingItems : this.pagination.limit);
+    this.pokemonListService.changePagination(this.pagination);
+    this.lastPage = true;
+    this.firstPage = false;
+  }
+
+  goToFirstPage() {
+    this.pagination.offset = 0;
+    this.pokemonListService.changePagination(this.pagination);
+    this.lastPage = false;
+    this.firstPage = true;
   }
 }
