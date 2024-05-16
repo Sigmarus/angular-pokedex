@@ -5,6 +5,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
 import { Pagination } from './pagination';
+import { PokemonListPage } from 'src/utils/types/PokemonListPage';
 
 @Injectable({ providedIn: 'root' })
 export class PokemonListServiceComponent {
@@ -17,15 +18,15 @@ export class PokemonListServiceComponent {
 
     readonly pokemons$ = this.pokemonPage$
         .pipe(
-            tap(page => console.log(page)),
-            switchMap(page => {
+            tap(pagination => console.log(pagination)),
+            switchMap(pagination => {
                 let params = new HttpParams();
-                if (page.offset) params = params.set('offset', page.offset);
-                if (page.limit)  params = params.set('limit', page.limit);
+                if (pagination.offset) params = params.set('offset', pagination.offset);
+                if (pagination.limit)  params = params.set('limit', pagination.limit);
                 const options = params.keys().length ? {params} : {};
-                return this.http.get<any>(this.baseUrl, options)
+                return this.http.get<PokemonListPage>(this.baseUrl, options)
                     .pipe(
-                        tap(pokemons => console.log(pokemons)),
+                        tap(page => console.log(page)),
                         catchError(this.handleError)
                     );
             }),

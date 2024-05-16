@@ -5,7 +5,7 @@
             {{ pokemon.name }}
         </li>
     </ul>
-    <div style="display: flex; justify-content: center;">
+    <div class="pagination">
         <button [disabled]="firstPage" (click)="goToFirstPage()">First</button>
         <button [disabled]="firstPage" (click)="goToPreviousPage()">Prev</button>
         <p>{{(pagination.offset/pagination.limit)+1}}/{{(count/pagination.limit) | ceil}}</p>
