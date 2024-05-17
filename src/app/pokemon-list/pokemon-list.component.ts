@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { PokemonListServiceComponent } from './pokemon-list.service';
+import { Component, signal } from '@angular/core';
 import { map, tap } from 'rxjs/operators';
-import { Pagination } from './pagination';
+import { PokemonService } from '../pokemon.service';
+import { Pagination } from 'src/utils/types/Pagination';
+import { SimpleResource } from 'src/utils/types/SimpleResource';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -15,14 +16,21 @@ export class PokemonListComponent {
   firstPage = true;
   lastPage = false;
 
-  constructor(private pokemonListService: PokemonListServiceComponent) {}
+  selectedPokemonName = signal<string|undefined>(undefined);
 
-  pokemons$ = this.pokemonListService.pokemons$.pipe(
+  constructor(private pokemonService: PokemonService) {}
+
+  pokemons$ = this.pokemonService.pokemons$.pipe(
     tap(response => {
       this.count = response.count;
     }),
     map(pokemons => pokemons.results)
   );
+
+  onSelected(pokemon: SimpleResource) {
+    this.selectedPokemonName.set(pokemon.name);
+    this.pokemonService.onSelectPokemon(pokemon);
+  }
 
   goToNextPage() {
     if (this.pagination.offset + this.pagination.limit > this.count) {
@@ -30,7 +38,7 @@ export class PokemonListComponent {
       return;
     }
     this.pagination.offset += this.pagination.limit;
-    this.pokemonListService.changePagination(this.pagination);
+    this.pokemonService.onChangePagination(this.pagination);
     this.lastPage = false;
     this.firstPage = false;
   }
@@ -41,7 +49,7 @@ export class PokemonListComponent {
       return;
     }
     this.pagination.offset -= this.pagination.limit;
-    this.pokemonListService.changePagination(this.pagination);
+    this.pokemonService.onChangePagination(this.pagination);
     this.lastPage = false;
     this.firstPage = false;
   }
@@ -49,14 +57,14 @@ export class PokemonListComponent {
   goToLastPage() {
     const lastPageRemainingItems = (this.count % this.pagination.limit);
     this.pagination.offset = this.count - (lastPageRemainingItems > 0 ? lastPageRemainingItems : this.pagination.limit);
-    this.pokemonListService.changePagination(this.pagination);
+    this.pokemonService.onChangePagination(this.pagination);
     this.lastPage = true;
     this.firstPage = false;
   }
 
   goToFirstPage() {
     this.pagination.offset = 0;
-    this.pokemonListService.changePagination(this.pagination);
+    this.pokemonService.onChangePagination(this.pagination);
     this.lastPage = false;
     this.firstPage = true;
   }

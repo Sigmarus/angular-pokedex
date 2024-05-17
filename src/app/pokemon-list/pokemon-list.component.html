@@ -1,10 +1,16 @@
 <h2>List of Pokémons</h2>
-<ng-container *ngIf="(pokemons$ | async) as pokemons">
-    <ul>
-        <li *ngFor="let pokemon of pokemons">
-            {{ pokemon.name }}
-        </li>
-    </ul>
+<p>TODO: pokemon search bar</p>
+<ng-container *ngIf="pokemons$ | async as pokemons">
+    <div class="content">
+        <ul>
+            <li *ngFor="let pokemon of pokemons">
+                <button (click)="onSelected(pokemon)" [ngClass]="{'active': pokemon.name === selectedPokemonName()}">
+                    {{ pokemon.name }}
+                </button>
+            </li>
+        </ul>
+        <pokemon-details />
+    </div>
     <div class="pagination">
         <button [disabled]="firstPage" (click)="goToFirstPage()">First</button>
         <button [disabled]="firstPage" (click)="goToPreviousPage()">Prev</button>

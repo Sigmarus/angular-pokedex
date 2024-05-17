@@ -1,1 +1,16 @@
-<p>pokemon-details works!</p>
+<label>
+    <input #autoplay type="checkbox" checked/>
+    Auto play sound
+</label>
+<ng-container *ngIf="pokemon$ | async as pokemon">
+    <h3>#{{pokemon.id | id}} {{pokemon.name}}</h3>
+    <img [src]="pokemon.sprites.front_default"
+        [alt]="pokemon.name"
+        (click)="playAudio()">
+    <audio #audio
+        *ngIf="pokemon.cries.latest || pokemon.cries.legacy"
+        [src]="pokemon.cries.latest ?? pokemon.cries.legacy"
+        [autoplay]="autoplay.checked"
+        preload="auto">
+    </audio>
+</ng-container>
