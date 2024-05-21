@@ -6,6 +6,10 @@ html, body, app-root {
     width: 100%;
 }
 
+* {
+    font-family: Pixel;
+}
+
 app-root {
     display: flex;
     flex-direction: column;
