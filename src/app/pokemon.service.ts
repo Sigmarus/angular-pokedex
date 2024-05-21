@@ -15,14 +15,14 @@ export class PokemonService {
     constructor(private toastr: ToastrService) {}
 
     private http = inject(HttpClient);
-    private baseUrl = environment.pokeapiBaseUrl + '/pokemon'
+    private baseUrl = environment.pokeapiBaseUrl + '/pokemon';
 
     private pokemonPageSubject = new BehaviorSubject<Pagination>(new Pagination());
     readonly pokemonPage$ = this.pokemonPageSubject.asObservable();
 
     private pokemonSelectedSubject = new BehaviorSubject<string|undefined>(undefined);
     readonly pokemonSelected$ = this.pokemonSelectedSubject.asObservable();
-    
+
     readonly pokemons$ = this.pokemonPage$
         .pipe(
             switchMap(pagination => {
@@ -38,7 +38,7 @@ export class PokemonService {
             catchError(this.handleError)
         );
 
-    readonly pokemon$ = this.pokemonSelected$
+        readonly pokemon$ = this.pokemonSelected$
         .pipe(
             filter(Boolean),
             switchMap(url => 

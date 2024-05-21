@@ -1,5 +1,17 @@
 h1 {
-    padding: 0 8px;
+    margin: 0;
+    padding: 16px;
+    height: 100px;
+    background-position: center;
+    background-size: cover;
+}
+
+.daytime-bg {
+    background-image: url('../assets/images/pokemon-banner-pixel.gif');
+}
+
+.nighttime-bg {
+    background-image: url('../assets/images/pokemon-background-evening.jpg');
 }
 
 footer {

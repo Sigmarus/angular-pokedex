@@ -4,7 +4,7 @@ import { PokemonService } from '../pokemon.service';
 @Component({
   selector: 'pokemon-details',
   templateUrl: './pokemon-details.component.html',
-  styleUrls: ['./pokemon-details.component.scss']
+  styleUrl: './pokemon-details.component.scss'
 })
 export class PokemonDetailsComponent {
 

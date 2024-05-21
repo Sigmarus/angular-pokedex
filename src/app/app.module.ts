@@ -9,12 +9,14 @@ import { CeilIntegerPipe } from 'src/utils/CeilIntegerPipe';
 import { IdFormatPipe } from 'src/utils/IdFormatPipe';
 import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+import { SpritesCarouselComponent } from './pokemon-details/sprites-carousel/sprites-carousel.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PokemonListComponent,
-    PokemonDetailsComponent
+    PokemonDetailsComponent,
+    SpritesCarouselComponent
   ],
   imports: [
     BrowserModule,

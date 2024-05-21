@@ -1,5 +1,5 @@
 <h2>List of Pokémons</h2>
-<p>TODO: pokemon search bar</p>
+<input #search class="searchbar" placeholder="Search a Pokémon..." />
 <ng-container *ngIf="pokemons$ | async as pokemons">
     <div class="content">
         <ul>
@@ -14,7 +14,7 @@
     <div class="pagination">
         <button [disabled]="firstPage" (click)="goToFirstPage()">First</button>
         <button [disabled]="firstPage" (click)="goToPreviousPage()">Prev</button>
-        <p>{{(pagination.offset/pagination.limit)+1}}/{{(count/pagination.limit) | ceil}}</p>
+        <p>{{ (pagination.offset/pagination.limit)+1 }} / {{ (count/pagination.limit) | ceil }}</p>
         <button [disabled]="lastPage" (click)="goToNextPage()">Next</button>
         <button [disabled]="lastPage" (click)="goToLastPage()">Last</button>
     </div>

@@ -3,14 +3,25 @@
     Auto play sound
 </label>
 <ng-container *ngIf="pokemon$ | async as pokemon">
-    <h3>#{{pokemon.id | id}} {{pokemon.name}}</h3>
-    <img [src]="pokemon.sprites.front_default"
-        [alt]="pokemon.name"
-        (click)="playAudio()">
+    <h3>
+        #{{pokemon.id | id}} {{pokemon.name}}
+        <span (click)="playAudio()">🔊</span>
+    </h3>
     <audio #audio
         *ngIf="pokemon.cries.latest || pokemon.cries.legacy"
         [src]="pokemon.cries.latest ?? pokemon.cries.legacy"
         [autoplay]="autoplay.checked"
         preload="auto">
     </audio>
+    <sprites-carousel [pokemon]="pokemon" />
+    <div class="types">
+        <h4>Type(s)</h4>
+        <img *ngFor="let type of pokemon.types"
+            [src]="'../assets/images/types/'+type.type.name.toLowerCase()+'.png'"
+            [title]="type.type.name" />
+    </div>
+    <h4>Base stats</h4>
+    <div *ngFor="let stat of pokemon.stats">
+        <b>{{ stat.stat.name }}:</b> {{ stat.base_stat }}
+    </div>
 </ng-container>

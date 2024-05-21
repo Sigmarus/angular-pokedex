@@ -1,0 +1,19 @@
+.carousel {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    scroll-snap-type: x mandatory;
+    overflow-y: auto;
+
+    span {
+        text-align: center;
+    }
+
+    img {
+        width: auto;
+        height: 20rem;
+        border: 1px grey solid;
+        border-radius: 1rem;
+        box-shadow: 8px 4px 4px grey;
+    }
+}
