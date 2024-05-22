@@ -2,7 +2,7 @@ import { environment } from 'src/environments/environment';
 import { Injectable, inject } from "@angular/core";
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
-import { catchError, filter, switchMap } from 'rxjs/operators';
+import { catchError, filter, map, switchMap } from 'rxjs/operators';
 import { Pagination } from 'src/utils/types/Pagination';
 import { PokemonListPage } from 'src/utils/types/PokemonListPage';
 import { SimpleResource } from 'src/utils/types/SimpleResource';
@@ -38,7 +38,7 @@ export class PokemonService {
             catchError(this.handleError)
         );
 
-        readonly pokemon$ = this.pokemonSelected$
+    readonly pokemon$ = this.pokemonSelected$
         .pipe(
             filter(Boolean),
             switchMap(url => 
@@ -49,6 +49,14 @@ export class PokemonService {
             ),
             catchError(this.handleError)
         );
+
+    getCount(): Observable<number> {
+        let params = new HttpParams();
+        params = params.set('offset', -1);
+        return this.http.get<PokemonListPage>(this.baseUrl, {params}).pipe(
+            map(result => result.count)
+        )
+    }
 
     onSelectPokemon(identifier: SimpleResource) {
         this.pokemonSelectedSubject.next(identifier.url);

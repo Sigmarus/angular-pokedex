@@ -1,0 +1,6 @@
+<div class="flex column">
+    <input class="flex" placeholder="Search a Pokémon..." [(ngModel)]="search" autocomplete="off" />
+    <select *ngIf="results.length" [ngModel]="selectedPokemon" (ngModelChange)="onSelectPokemon">
+        <option *ngFor="let result of results" [value]="result">{{ result.name }}</option>
+    </select>
+</div>

@@ -1,21 +1,21 @@
 <h2>List of Pokémons</h2>
-<input #search class="searchbar" placeholder="Search a Pokémon..." />
-<ng-container *ngIf="pokemons$ | async as pokemons">
-    <div class="content">
-        <ul>
+<searchbar class="row" />
+<div *ngIf="pokemons$ | async as pokemons" class="row flex content">
+    <div class="column list">
+        <ul class="flex">
             <li *ngFor="let pokemon of pokemons">
                 <button (click)="onSelected(pokemon)" [ngClass]="{'active': pokemon.name === selectedPokemonName()}">
                     {{ pokemon.name }}
                 </button>
             </li>
         </ul>
-        <pokemon-details />
+        <div class="row pagination">
+            <button [disabled]="firstPage" (click)="goToFirstPage()">First</button>
+            <button [disabled]="firstPage" (click)="goToPreviousPage()">Prev</button>
+            <span>{{ (pagination.offset / pagination.limit) + 1 }} / {{ (count / pagination.limit) | ceil }}</span>
+            <button [disabled]="lastPage" (click)="goToNextPage()">Next</button>
+            <button [disabled]="lastPage" (click)="goToLastPage()">Last</button>
+        </div>
     </div>
-    <div class="pagination">
-        <button [disabled]="firstPage" (click)="goToFirstPage()">First</button>
-        <button [disabled]="firstPage" (click)="goToPreviousPage()">Prev</button>
-        <p>{{ (pagination.offset/pagination.limit)+1 }} / {{ (count/pagination.limit) | ceil }}</p>
-        <button [disabled]="lastPage" (click)="goToNextPage()">Next</button>
-        <button [disabled]="lastPage" (click)="goToLastPage()">Last</button>
-    </div>
-</ng-container>
+    <pokemon-details *ngIf="selectedPokemonName()" class="flex column" />
+</div>

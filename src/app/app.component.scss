@@ -1,17 +1,15 @@
 h1 {
     margin: 0;
     padding: 16px;
-    height: 100px;
-    background-position: center;
+    height: 10rem;
+    color: #222;
+    text-shadow: 3px 3px 1px white;
+}
+
+.banner {
+    background-image: url('../assets/images/pokemon-banner.jpg');
+    background-position: 50% 70%;
     background-size: cover;
-}
-
-.daytime-bg {
-    background-image: url('../assets/images/pokemon-banner-pixel.gif');
-}
-
-.nighttime-bg {
-    background-image: url('../assets/images/pokemon-background-evening.jpg');
 }
 
 footer {
@@ -21,4 +19,18 @@ footer {
     font-size: 0.8rem;
     font-variant: small-caps;
     padding: 16px 0;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex {
+    flex: 1;
 }

@@ -8,7 +8,7 @@ import { PokemonService } from '../pokemon.service';
 })
 export class PokemonDetailsComponent {
 
-  @ViewChild('audio', {read: ElementRef}) audio?: ElementRef<HTMLAudioElement>;
+  @ViewChild('audio') audio!: ElementRef<HTMLAudioElement>;
 
   constructor(private pokemonService: PokemonService) {}
 

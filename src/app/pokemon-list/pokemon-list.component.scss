@@ -7,49 +7,50 @@ h2 {
     padding: 0 1rem;
 }
 
-.active {
-    box-shadow: inset 0px 0px 5px grey;
+.content {
+    overflow: hidden;
+    padding: 1rem;
+    gap: 1rem;
 }
 
-.content {
-    flex: 1;
-    display: flex;
+.list {
     overflow: hidden;
-    padding: 1rem 0;
+}
 
-    ul {
-        margin: 0;
-        padding: 0 1rem;
-        overflow-y: auto;
-        list-style-type: none;
-        
-        li {
-            margin: 2px 0;
-        }
-
-        button {
-            width: 100%;
-        }
+ul {
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    list-style-type: none;
+    
+    li {
+        margin: 2px 0;
     }
 
-    pokemon-details {
-        margin: 0;
-        padding: 0 1rem;
-        overflow-y: auto;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
+    button {
+        width: 100%;
+        
+        &.active {
+            box-shadow: inset 0px 0px 5px grey;
+        }
     }
 }
 
 .pagination {
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 0 0.8rem 0.8rem 0.8rem;
+    align-items: baseline;
+    margin: 0;
+    padding: 0;
 
-    p {
-        margin: 0;
-        padding: 0 1rem;
+    :not(button) {
+        margin: 0.8rem 1rem 0 1rem;
+        padding: 0;
     }
+}
+
+pokemon-details {
+    margin: 0;
+    padding: 1rem;
+    overflow: auto;
 }
